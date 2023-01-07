@@ -1,0 +1,54 @@
+#! /bin/sh
+
+# Startups                            
+pgrep -x sxhkd > /dev/null || sxhkd &     # sxhkd
+bash -c $HOME/.config/polybar/launch.sh &         # polybar
+xsetroot -cursor_name left_ptr &          # cursor
+# dunst &                                   # notification daemon
+
+# wallpaper
+feh --bg-fill ${HOME}/Pictures/Landscape.png
+
+# No of workspaces
+bspc monitor -d 1 2 3 4 5 6 7
+
+
+# focus with pointer
+bspc config focus_follows_pointer true
+# split ratio
+bspc config split_ratio           0.50
+bspc config borderless_monocle    true
+bspc config gapless_monocle       true
+# border colors basic
+bspc config focused_border_color  '#ABB2BF'
+bspc config normal_border_color   '#282C34'
+bspc config border_width          3
+bspc config window_gap            5
+
+#Application Rules
+bspc config external_rules_command ~/.config/bspwm/external_rules.sh
+bspc rule -a Gimp desktop='^4' follow=on
+bspc rule -a firefox desktop='^2' follow=on
+bspc rule -a brave-browser desktop='^2' follow=on
+bspc rule -a vlc desktop='^5' follow=on
+bspc rule -a Brave-browser desktop='^2' follow=on
+bspc rule -a google-chrome desktop='^2' follow=on
+bspc rule -a code desktop="^6" follow=on
+bspc rule -a Code desktop="^6" follow=on
+bspc rule -a Spotify desktop="^7" follow=on
+bspc rule -a wine desktop='^1' state=floating follow=on
+bspc rule -a Discord desktop='^1'
+bspc rule -a "MEAGAsync" state=floating follow=on
+bspc rule -a *:*:"Picture in picture" state=floating sticky=off rectangle=500x281+863+484
+bspc rule -a xdman-Main:*:" " state=floating
+
+# Layouts
+bsp-layout set tall 6
+
+
+# autostart
+picom -f &
+lxpolkit &
+/usr/lib/geoclue-2.0/demos/agent &
+redshift &
+clipit &

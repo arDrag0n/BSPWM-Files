@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+
+########## PAM #############
+import getopt
+import os
+import sys
+
+if __name__ == "__main__":
+
+    if len(sys.argv) == 1:
+        print("Pam is a searching utillity made for pacman to ease searching packages")
+    argv = sys.argv[1:]
+    opts, args = getopt.getopt(argv, "s:S:")
+
+    for opt, package in opts:
+        if opt in ["-S"]:
+            os.system("pacman -Ssq | grep " + package)
+        elif opt in ["-s"]:
+            os.system("pacman -Qsq | grep " + package)
